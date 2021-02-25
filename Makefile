@@ -4,6 +4,10 @@ TAG?=latest
 build:
 	./build.sh
 
+.PHONY: push
+push:
+	docker push eu.gcr.io/cognitedata/gateway:$(TAG)
+
 .PHONY: build-gateway
 build-gateway:
 	(cd gateway; ./build.sh latest-dev)
