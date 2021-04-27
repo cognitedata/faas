@@ -6,7 +6,11 @@ build:
 
 .PHONY: build-gateway
 build-gateway:
-	(cd gateway; ./build.sh latest-dev)
+	(cd gateway; ./build.sh $(TAG))
+
+.PHONY: push-gateway
+build-gateway:
+	(cd gateway; ./push.sh $(TAG))
 
 .PHONY: test-ci
 test-ci:
