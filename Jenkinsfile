@@ -54,12 +54,12 @@ podTemplate(
                 sh("#!/bin/sh -e\n"
                     + "apk add --update-cache make")
                 sh("#!/bin/sh -e\n"
-                    + "make -j8 TAG=$dockerImageTag")
+                    + "make build-gateway -j8 TAG=$dockerImageTag")
             }
             if (env.BRANCH_NAME == 'master') {
                 stageWithNotify('Push Docker image') {
                     sh('#!/bin/sh -e\n' + 'docker login -u _json_key -p "$(cat /jenkins-docker-builder/credentials.json)" https://eu.gcr.io')
-                    sh("make push TAG=$dockerImageTag")
+                    sh("make push-gateway TAG=$dockerImageTag")
                 }
             }
         }

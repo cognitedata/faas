@@ -29,14 +29,8 @@ if [ "$1" ] ; then
   fi
 fi
 
-if [ "$2" ] ; then
-  NS=$2
-else
-  NS=openfaas
-fi
 
-
-echo "Building $NS/gateway:$eTAG with $dockerfile for $arch"
+echo "Building eu.gcr.io/cognitedata/gateway:$eTAG with $dockerfile for $arch"
 
 GIT_COMMIT_MESSAGE=$(git log -1 --pretty=%B 2>&1 | head -n 1)
 GIT_COMMIT_SHA=$(git rev-list -1 HEAD)
@@ -47,4 +41,4 @@ docker build --build-arg https_proxy=$https_proxy --build-arg http_proxy=$http_p
   --build-arg VERSION="${VERSION:-dev}" \
   --build-arg GOARM="${GOARM}" \
   --build-arg ARCH="${arch}" \
-  -t $NS/gateway:$eTAG . -f $dockerfile
+  -t eu.gcr.io/cognitedata/gateway:$eTAG . -f $dockerfile

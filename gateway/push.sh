@@ -22,13 +22,7 @@ if [ "$1" ] ; then
 fi
 
 
-if [ "$2" ] ; then
-  NS=$2
-else
-  NS=openfaas
-fi
+echo Pushing eu.gcr.io/cognitedata/gateway:$eTAG
 
-echo Pushing $NS/gateway:$eTAG
-
-docker push $NS/gateway:$eTAG
+docker push eu.gcr.io/cognitedata/gateway:$eTAG
 

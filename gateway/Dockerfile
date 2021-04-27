@@ -36,10 +36,10 @@ RUN license-check -path ./ --verbose=false "Alex Ellis" "OpenFaaS Authors" "Open
     && test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*"))" \
     && CGO_ENABLED=${CGO_ENABLED} go test $(go list ./... | grep -v integration | grep -v /vendor/ | grep -v /template/) -cover \
     && GOARM=${GOARM} CGO_ENABLED=${CGO_ENABLED} GOOS=linux go build --ldflags "-s -w \
-    -X github.com/openfaas/faas/gateway/version.GitCommitSHA=${GIT_COMMIT_SHA}\
-    -X \"github.com/openfaas/faas/gateway/version.GitCommitMessage=${GIT_COMMIT_MESSAGE}\"\
-    -X \"github.com/openfaas/faas/gateway/version.Version=${VERSION}\" \
-    -X github.com/openfaas/faas/gateway/types.Arch=${ARCH}"\
+    -X github.com/cognitedata/faas/gateway/version.GitCommitSHA=${GIT_COMMIT_SHA}\
+    -X \"github.com/cognitedata/faas/gateway/version.GitCommitMessage=${GIT_COMMIT_MESSAGE}\"\
+    -X \"github.com/cognitedata/faas/gateway/version.Version=${VERSION}\" \
+    -X github.com/cognitedata/faas/gateway/types.Arch=${ARCH}"\
     -a -installsuffix cgo -o gateway .
 
 FROM alpine:3.11
@@ -47,9 +47,9 @@ FROM alpine:3.11
 ARG ARCH="x86_64"
 
 LABEL org.label-schema.license="MIT" \
-    org.label-schema.vcs-url="https://github.com/openfaas/faas" \
+    org.label-schema.vcs-url="https://github.com/cognitedata/faas" \
     org.label-schema.vcs-type="Git" \
-    org.label-schema.name="openfaas/faas" \
+    org.label-schema.name="cognitedata/faas" \
     org.label-schema.vendor="openfaas" \
     org.label-schema.docker.schema-version="1.0"
 
@@ -64,7 +64,7 @@ EXPOSE 8082
 ENV http_proxy      ""
 ENV https_proxy     ""
 
-COPY --from=build /go/src/github.com/openfaas/faas/gateway/gateway    .
+COPY --from=build /go/src/github.com/cognitedata/faas/gateway/gateway    .
 COPY assets     assets
 RUN sed -ie s/x86_64/${ARCH}/g assets/script/funcstore.js && \
   rm assets/script/funcstore.jse
